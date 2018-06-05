@@ -109,9 +109,9 @@ void World::createBuffer(int width, int height)
 	console[1].createBuffer(width, height);
 }
 
-void World::bufferSetColor(ColorRGB textColor, ColorRGB backgroundColor)
+void World::bufferSetColor(ColorRGB color)
 {
-	console[nConsoleIndex].textColor(textColor, backgroundColor);
+	console[nConsoleIndex].textColor(color);
 }
 
 void World::bufferWrite(int x, int y, char* string)

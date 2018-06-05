@@ -12,7 +12,7 @@ public:
 	Console* bufferClear();
 
 	Console* setCursorVisibility(bool isVisible);
-	Console* textColor(ColorRGB textColor, ColorRGB backgroundColor);
+	Console* textColor(ColorRGB color);
 	int findClosestColor(ColorRGB color);
 
 	int consoleWidth;

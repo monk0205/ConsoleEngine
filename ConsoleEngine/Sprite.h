@@ -16,6 +16,5 @@ public:
 	
 	//string datas;
 	vector<string> datas;
-	ColorRGB textColor;
-	ColorRGB backgroundColor;
+	ColorRGB color;
 };

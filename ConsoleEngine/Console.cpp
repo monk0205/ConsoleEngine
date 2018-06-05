@@ -62,9 +62,9 @@ Console* Console::setCursorVisibility(bool isVisible)
 	return this;
 }
 
-Console* Console::textColor(ColorRGB textColor, ColorRGB backgroundColor)
+Console* Console::textColor(ColorRGB color)
 {
-	SetConsoleTextAttribute(consoleHandle, findClosestColor(backgroundColor) << 4 | findClosestColor(textColor));
+	SetConsoleTextAttribute(consoleHandle, findClosestColor(color));
 	return this;
 }
 

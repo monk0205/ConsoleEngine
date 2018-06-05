@@ -24,7 +24,7 @@ public:
 	Vec2 getMousePosToScene();
 
 	void createBuffer(int width, int height);
-	void bufferSetColor(ColorRGB textColor, ColorRGB backgroundColor);
+	void bufferSetColor(ColorRGB color);
 	void bufferWrite(int x, int y, char* string);
 	void flipping();
 

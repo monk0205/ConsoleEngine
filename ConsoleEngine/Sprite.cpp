@@ -3,11 +3,11 @@
 #include "World.h"
 #include "Scene.h"
 
-Sprite::Sprite() : textColor(255, 255, 255), backgroundColor(0, 0, 0)
+Sprite::Sprite() : color(255, 255, 255)
 {
 }
 
-Sprite::Sprite(string data) : textColor(255, 255, 255), backgroundColor(0, 0, 0)
+Sprite::Sprite(string data) : color(255, 255, 255)
 {
 	setData(data);
 }
@@ -52,7 +52,7 @@ void Sprite::render()
 	//}
 	//영준이 열심히 한다 ! 파이팅 !!!^^♥
 
-	world.bufferSetColor(textColor, backgroundColor);
+	world.bufferSetColor(color);
 
 	int y = 0;
 	for (string data : datas) {

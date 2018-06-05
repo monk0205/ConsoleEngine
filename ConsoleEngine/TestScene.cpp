@@ -12,8 +12,7 @@ TestScene::TestScene()
 		    .addData("*             *")
 		    .addData("***************");
 	charSpr->pos = Vec2(10, 10);
-	charSpr->textColor = ColorRGB(67, 218, 236);
-	//charSpr->backgroundColor = ColorRGB(242, 0, 255);
+	charSpr->color = ColorRGB(67, 218, 236);
 	addChild(charSpr);
 
 	for (int i = 0; i < 2; i++) {
@@ -53,6 +52,13 @@ void TestScene::update(float dt)
 
 	charMove(dt);
 	cameraMove(dt);
+
+	if (world.getKeyState(VK_LBUTTON) > 0) {
+		charSpr->color = ColorRGB(255, 255, 255);
+	}
+	else {
+		charSpr->color = ColorRGB(67, 218, 236);
+	}
 
 	pointCollision();
 }
@@ -99,15 +105,15 @@ void TestScene::pointCollision()
 	stringstream str;
 	str << MP.x << ", " << MP.y;
 	world.bufferWrite(0, 1, const_cast<char*>(str.str().c_str()));
-	//if(pointSpr[0]->rect.offset(pointSpr[0]->pos).intersectsRect(MR, MP)){
-	if (pointSpr[0]->rect.offset(pointSpr[0]->pos).intersectsRect(charSpr->rect, charSpr->pos)) {
+	if(pointSpr[0]->rect.offset(pointSpr[0]->pos).intersectsRect(MR, MP)){
+	//if (pointSpr[0]->rect.offset(pointSpr[0]->pos).intersectsRect(charSpr->rect, charSpr->pos)) {
 		//pointSpr[0]->isVisible = false;
 		//pointSpr[1]->isVisible = true;
-		pointSpr[0]->textColor = ColorRGB(255, 0, 0);
+		pointSpr[0]->color = ColorRGB(255, 0, 0);
 	}
 	else {
 		//pointSpr[0]->isVisible = true;
 		//pointSpr[1]->isVisible = false;
-		pointSpr[0]->textColor = ColorRGB(0, 255, 128);
+		pointSpr[0]->color = ColorRGB(0, 255, 128);
 	}
 }
