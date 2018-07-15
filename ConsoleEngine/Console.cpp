@@ -9,66 +9,66 @@ Console::~Console()
 {
 }
 
-Console* Console::createBuffer(int width, int height)
+Console* Console::CreateBuffer(int Width, int Height)
 {
-	consoleWidth = width;
-	consoleHeight = height;
+	console_width_ = Width;
+	console_height_ = Height;
 
 	CONSOLE_CURSOR_INFO cci;
-	COORD size = { width, height };
-	SMALL_RECT rect;
+	COORD size = { Width, Height };
+	SMALL_RECT rect_;
 
-	rect.Left = 0;
-	rect.Right = width - 1;
-	rect.Top = 0;
-	rect.Bottom = height - 1;
+	rect_.Left = 0;
+	rect_.Right = Width - 1;
+	rect_.Top = 0;
+	rect_.Bottom = Height - 1;
 
 	cci.dwSize = 1;
 	cci.bVisible = FALSE;
 
-	consoleHandle = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
-	SetConsoleScreenBufferSize(consoleHandle, size);
-	SetConsoleWindowInfo(consoleHandle, TRUE, &rect);
-	SetConsoleCursorInfo(consoleHandle, &cci);
+	console_handle_ = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+	SetConsoleScreenBufferSize(console_handle_, size);
+	SetConsoleWindowInfo(console_handle_, TRUE, &rect_);
+	SetConsoleCursorInfo(console_handle_, &cci);
 
 	return this;
 }
 
-Console* Console::bufferWrite(int x, int y, char* string)
+Console* Console::BufferWrite(int x, int y, char* string)
 {
 	DWORD dw;
-	COORD pos = { x, y };
-	SetConsoleCursorPosition(consoleHandle, pos);
-	WriteFile(consoleHandle, string, strlen(string), &dw, NULL);
+	COORD pos_ = { x, y };
+	SetConsoleCursorPosition(console_handle_, pos_);
+	WriteFile(console_handle_, string, strlen(string), &dw, NULL);
 
 	return this;
 }
 
-Console* Console::bufferClear()
+Console* Console::BufferClear()
 {
 	COORD Coor = { 0, 0 };
 	DWORD dw;
-	FillConsoleOutputCharacter(consoleHandle, ' ', consoleWidth * consoleHeight, Coor, &dw);
+	FillConsoleOutputCharacter(console_handle_, ' ', console_width_ * console_height_, Coor, &dw);
 	return this;
 }
 
-Console* Console::setCursorVisibility(bool isVisible)
+Console* Console::SetCursorVisibility(bool is_visible_)
 {
 	CONSOLE_CURSOR_INFO cursorInfo;
-	GetConsoleCursorInfo(consoleHandle, &cursorInfo);
-	cursorInfo.bVisible = isVisible;
-	SetConsoleCursorInfo(consoleHandle, &cursorInfo);
+	GetConsoleCursorInfo(console_handle_, &cursorInfo);
+	cursorInfo.bVisible = is_visible_;
+	SetConsoleCursorInfo(console_handle_, &cursorInfo);
 
 	return this;
 }
 
-Console* Console::textColor(ColorRGB color)
+Console* Console::TextColor(ColorRGB color)
 {
-	SetConsoleTextAttribute(consoleHandle, findClosestColor(color));
+	SetConsoleTextAttribute(console_handle_, FindClosestColor(color));
 	return this;
 }
 
-int Console::findClosestColor(ColorRGB color)
+int Console::FindClosestColor(ColorRGB color)
 {
 	int r[] = { 0, 0, 0, 0, 128, 128, 128, 128, 192, 0, 0, 0, 255, 255, 255, 255 };
 	int g[] = { 0, 0, 128, 128, 0, 0, 128, 128, 192, 0, 255, 255, 0, 0, 255, 255 };
@@ -81,7 +81,7 @@ int Console::findClosestColor(ColorRGB color)
 	int bestIndex = 0;
 	int bestDist = INT32_MAX;
 	for (int i = 0; i < 16; i++) {
-		int dist = square(colorR - r[i]) + square(colorB - b[i]) + square(colorG - g[i]);
+		int dist = Square(colorR - r[i]) + Square(colorB - b[i]) + Square(colorG - g[i]);
 		if (dist < bestDist) {
 			bestIndex = i;
 			bestDist = dist;
@@ -97,4 +97,9 @@ int Console::findClosestColor(ColorRGB color)
 	else if (bestIndex > 8)
 		return consoleValue | FOREGROUND_INTENSITY;
 	return consoleValue;
+}
+
+HANDLE Console::GetConsoleHandle()
+{
+	return console_handle_;
 }

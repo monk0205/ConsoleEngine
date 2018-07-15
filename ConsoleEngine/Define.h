@@ -17,19 +17,19 @@ struct Vec2
 		
 	}
 
-	Vec2 add(Vec2 v) {
+	Vec2 Add(Vec2 v) {
 		this->x += v.x;
 		this->y += v.y;
 		return *this;
 	}
 
-	Vec2 sub(Vec2 v) {
+	Vec2 Sub(Vec2 v) {
 		this->x -= v.x;
 		this->y -= v.y;
 		return *this;
 	}
 
-	Vec2 vecToInt() {
+	Vec2 VecToInt() {
 		Vec2 v(ceil(this->x), ceil(this->y));
 		return v;
 	}
@@ -66,17 +66,17 @@ public:
 		this->bottom = bottom;
 	}
 
-	bool intersectsRect(Rect rect) {
+	bool IntersectsRect(Rect rect) {
 		Rect tmpRect;
 		return IntersectRect(&tmpRect, this, &rect);
 	}
 
-	bool intersectsRect(Rect rect, Vec2 pos) {
+	bool IntersectsRect(Rect rect, Vec2 pos) {
 		Rect tmpRect;
-		return IntersectRect(&tmpRect, this, &rect.offset(pos));
+		return IntersectRect(&tmpRect, this, &rect.Offset(pos));
 	}
 
-	Rect offset(Vec2 pos) {
+	Rect Offset(Vec2 pos) {
 		Rect r = *this;
 		r.left += pos.x;
 		r.top += pos.y;
@@ -85,22 +85,22 @@ public:
 		return r;
 	}
 
-	int width() {
+	int Width() {
 		return right - left;
 	}
 
-	int height() {
+	int Height() {
 		return bottom - top;
 	}
 
-	Vec2 center() {
-		return Vec2(width() / 2, height() / 2);
+	Vec2 Center() {
+		return Vec2(Width() / 2, Height() / 2);
 	}
 };
 
-inline int random(int to, int from)
+inline int Random(int to, int from)
 {
 	return (rand() % (from - to + 1)) + to;
 }
 
-inline int square(int x) { return x * x; }
+inline int Square(int x) { return x * x; }

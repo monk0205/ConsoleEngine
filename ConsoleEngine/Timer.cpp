@@ -2,38 +2,38 @@
 #include "Timer.h"
 #include "World.h"
 
-Timer::Timer() : active(false)
+Timer::Timer() : active_(false)
 {
 	onTick = []() {};
 	onFinished = []() {};
 
-	world.timers.push_back(this);
+	world.GetTimers().push_back(this);
 }
 
 Timer::~Timer()
 {
-	//world.getTimers().erase(this);
+	world.GetTimers().erase(remove(world.GetTimers().begin(), world.GetTimers().end(), this), world.GetTimers().end());
 }
 
-void Timer::reset(int count, float duration, bool AutoStart)
+void Timer::Reset(int count, float duration, bool AutoStart)
 {
-	active = AutoStart;
-	this->count.first = 0;
-	this->count.second = count;
-	this->duration.first = 0;
-	this->duration.second = duration;
+	active_ = AutoStart;
+	this->count_.first = 0;
+	this->count_.second = count;
+	this->duration_.first = 0;
+	this->duration_.second = duration;
 }
 
-void Timer::update(float dt)
+void Timer::Update(float dt)
 {
-	if (active) {
-		duration.first += dt;
-		if (duration.first >= duration.second) {
-			duration.first = 0;
+	if (active_) {
+		duration_.first += dt;
+		if (duration_.first >= duration_.second) {
+			duration_.first = 0;
 			onTick();
-			if (++count.first >= count.second) {
+			if (++count_.first >= count_.second) {
 				onFinished();
-				active = false;
+				active_ = false;
 			}
 		}
 	}

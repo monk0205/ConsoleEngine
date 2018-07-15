@@ -7,13 +7,14 @@ public:
 	Timer();
 	~Timer();
 
-	void reset(int count, float duration, bool autoStart = true);
-	void update(float dt);
+	void Reset(int count, float duration, bool autoStart = true);
+	void Update(float dt);
 
 	function<void()> onTick;
 	function<void()> onFinished;
 
-	bool active;
-	pair<int, int> count;
-	pair<float, float> duration;
+private:
+	bool active_;
+	pair<int, int> count_;
+	pair<float, float> duration_;
 };

@@ -3,65 +3,87 @@
 #include "World.h"
 #include "Scene.h"
 
-Sprite::Sprite() : color(255, 255, 255)
+Sprite::Sprite() : color_(255, 255, 255)
 {
 }
 
-Sprite::Sprite(string data) : color(255, 255, 255)
+Sprite::Sprite(string data) : color_(255, 255, 255)
 {
-	setData(data);
+	SetStr(data);
 }
 
 Sprite::~Sprite()
 {
 }
 
-Sprite& Sprite::setData(string data)
+Sprite& Sprite::SetStr(string str)
 {
-	datas.clear();
-	datas.push_back(data);
-	rect.right = data.length();
+	data_.clear();
+	data_.push_back(str);
+	Rect rect = GetRect();
+	rect.right = str.length();
 	rect.bottom = 1;
+	SetRect(rect);
 	return *this;
 }
 
-Sprite& Sprite::addData(string data)
+Sprite& Sprite::AddStr(string str)
 {
-	datas.push_back(data);
-	rect.right = max(rect.right, data.length());
+	data_.push_back(str);
+	Rect rect = GetRect();
+	rect.right = max(rect.right, str.length());
 	rect.bottom++;
+	SetRect(rect);
 	return *this;
 }
 
-void Sprite::render()
+void Sprite::Render()
 {
-	if (!isVisible || datas.empty()) 
+	if (!GetIsVisible() || data_.empty()) 
 		return;
 
-	Entity::render();
+	Entity::Render();
 
-	Vec2 p = this->pos;
-	if (parent) {
-		p.x += parent->pos.x;
-		p.y += parent->pos.y;
+	Vec2 p = GetPos();
+	if (GetParent()) {
+		p.x += GetParent()->GetPos().x;
+		p.y += GetParent()->GetPos().y;
 	}
 
-	//if (p.x - rect.right + 1 >= 0 && p.x <= int(world.consoleWidth / 10.6) - rect.right + 1 &&
-	//	p.y - rect.bottom + 1 >= 0 && p.y <= int(world.consoleHeight / 24) - rect.bottom + 1) {
-	//	world.bufferWrite(p.x, p.y, const_cast<char*>(data.data()));
-	//}
-	//영준이 열심히 한다 ! 파이팅 !!!^^♥
-
-	world.bufferSetColor(color);
+	world.BufferSetColor(color_);
 
 	int y = 0;
-	for (string data : datas) {
-		for (int x = 0; x < data.length(); x++) {
-			if (p.x + x >= 0 && p.x <= int(world.consoleWidth / 10.6) - x &&
-				p.y + y >= 0 && p.y <= int(world.consoleHeight / 24) - y) {
-				world.bufferWrite(p.x + x, p.y + y, const_cast<char*>(&data.at(x)));
+	for (string str : data_) {
+		for (int x = 0; x < str.length(); x++) {
+			if (p.x + x >= 0 && p.x <= int(world.GetConsoleWidth() / 10.6) - x &&
+				p.y + y >= 0 && p.y <= int(world.GetConsoleHeight() / 24) - y) {
+				world.BufferWrite(p.x + x, p.y + y, const_cast<char*>(&str.at(x)));
+			}
+			else
+			{
+				int a = str.length();
 			}
 		}
 		y++;
 	}
+}
+
+vector<string> Sprite::GetData()
+{
+	return data_;
+}
+
+void Sprite::SetData(vector<string> data)
+{
+	data_ = data;
+}
+
+ColorRGB Sprite::GetColor()
+{
+	return color_;
+}
+
+void Sprite::SetColor(ColorRGB color)
+{
+	color_ = color;
 }

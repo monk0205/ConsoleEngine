@@ -2,6 +2,7 @@
 #include "Define.h"
 #include "Scene.h"
 #include "Sprite.h"
+#include "Animation.h"
 
 class TestScene :
 	public Scene
@@ -10,14 +11,15 @@ public:
 	TestScene();
 	~TestScene();
 
-	void update(float dt);
-	void render();
+	void Update(float dt);
+	void Render();
 
 	void charMove(float dt);
 	void cameraMove(float dt);
 
 	void pointCollision();
 
-	Sprite* charSpr;
+	Animation* charSpr;
 	Sprite* pointSpr[2];
+	Sprite* spr;
 };

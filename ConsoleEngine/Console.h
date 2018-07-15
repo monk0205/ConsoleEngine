@@ -7,17 +7,19 @@ public:
 	Console();
 	~Console();
 
-	Console* createBuffer(int width, int height);
-	Console* bufferWrite(int x, int y, char* string);
-	Console* bufferClear();
+	Console* CreateBuffer(int Width, int Height);
+	Console* BufferWrite(int x, int y, char* string);
+	Console* BufferClear();
 
-	Console* setCursorVisibility(bool isVisible);
-	Console* textColor(ColorRGB color);
-	int findClosestColor(ColorRGB color);
+	Console* SetCursorVisibility(bool is_visible_);
+	Console* TextColor(ColorRGB color);
+	int FindClosestColor(ColorRGB color);
 
-	int consoleWidth;
-	int consoleHeight;
-	int nBufferIndex;
+	HANDLE GetConsoleHandle();
 
-	HANDLE consoleHandle;
+private:
+	int console_width_;
+	int console_height_;
+
+	HANDLE console_handle_;
 };

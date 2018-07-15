@@ -6,6 +6,7 @@
 #include <functional>
 #include <sstream>
 #include <cmath>
+#include <fstream>
 
 #include <stdio.h>
 #include <conio.h>

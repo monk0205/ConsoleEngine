@@ -10,11 +10,16 @@ public:
 	Sprite(string data);
 	~Sprite();
 
-	Sprite& setData(string data);
-	Sprite& addData(string data);
-	void render();
+	Sprite& SetStr(string str);
+	Sprite& AddStr(string str);
+	void Render();
+
+	vector<string> GetData();
+	void SetData(vector<string> data);
+	ColorRGB GetColor();
+	void SetColor(ColorRGB color);
 	
-	//string datas;
-	vector<string> datas;
-	ColorRGB color;
+private:
+	vector<string> data_;
+	ColorRGB color_;
 };

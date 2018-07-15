@@ -5,18 +5,19 @@
 int main()
 {
 	SetConsoleTitleA("Console Project");
+	//system("mode con:cols=125 lines=25");
 
-	world.init();
+	world.Init();
 
-	while (!world.isEnd) {
-		world.update();
-		world.clear();
-		world.bufferWrite(0, 0, const_cast<char*>("Hello, World~!"));
-		world.render();
-		Sleep(33 - world.dt * 10);
+	while (!world.GetIsEnd()) {
+		world.Update();
+		world.Clear();
+		world.BufferWrite(0, 0, const_cast<char*>("Hello, World~!"));
+		world.Render();
+		Sleep(33 - world.GetDt() * 10);
 	}
 
-	world.dispose();
+	world.Dispose();
 
 	return 0;
 }

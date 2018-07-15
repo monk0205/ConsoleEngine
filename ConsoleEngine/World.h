@@ -11,40 +11,47 @@ public:
 	World();
 	~World();
 
-	void init();
-	void dispose();
+	void Init();
+	void Dispose();
 
-	void update();
-	void render();
-	void clear();
+	void Update();
+	void Render();
+	void Clear();
 
-	void changeScene(Scene* scene);
-	int getKeyState(int vk);
-	Vec2 getMousePos();
-	Vec2 getMousePosToScene();
+	void ChangeScene(Scene* scene);
+	int GetKeyState(int vk);
+	Vec2 GetMousePos();
+	Vec2 GetMousePosToScene();
 
-	void createBuffer(int width, int height);
-	void bufferSetColor(ColorRGB color);
-	void bufferWrite(int x, int y, char* string);
-	void flipping();
+	void CreateBuffer(int Width, int Height);
+	void BufferSetColor(ColorRGB color);
+	void BufferWrite(int x, int y, char* string);
+	void Flipping();
 
-	bool isEnd;
-	POINT mousePos;
-	Scene* currentScene;
+	bool GetIsEnd();
+	float GetDt();
+	vector<Timer*> GetTimers();
+	int GetConsoleWidth();
+	int GetConsoleHeight();
 
-	bool currentKeys[256];
-	bool lastKeys[256];
+private:
+	bool is_end_;
+	POINT mouse_pos_;
+	Scene* current_scene_;
 
-	clock_t currentClock;
-	clock_t lastClock;
-	float dt;
+	bool current_keys_[256];
+	bool last_keys_[256];
 
-	vector<Timer*> timers;
+	clock_t current_clock_;
+	clock_t last_clock_;
+	float dt_;
 
-	int nConsoleIndex;
-	Console console[2];
-	int consoleWidth;
-	int consoleHeight;
+	vector<Timer*> timers_;
+
+	int n_console_index_;
+	Console console_[2];
+	int console_width_;
+	int console_height_;
 };
 
 extern World world;
